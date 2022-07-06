@@ -1,0 +1,89 @@
+<div class="container-form">
+    <p-card class="child">
+        <p-header>
+             
+                <span><h2>Order Page</h2> </span>
+            
+        </p-header>
+
+
+
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="mat-form-field-fluid" >
+                    <input matInput placeholder="Search " autocomplete="off" (input)="onSearchChange()"
+                        [(ngModel)]="searchParameters.search" />
+                    <mat-hint align="start" class="ml-3">
+                        <strong>Search By Name </strong>
+                    </mat-hint>
+                </mat-form-field>
+                <div class="pull-right">
+                    <div class="col">
+                        <ng-container>
+                            <button mat-raised-button matTooltip="Add Order" color="primary" [routerLink]="['/orderlist/New']"
+                                type="button">
+                                <span>New Order</span>
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    <br/>
+
+        <mat-table #table [dataSource]="ordersdata" class="mat-elevation-z8">
+            <ng-container matColumnDef="Id">
+                <mat-header-cell *matHeaderCellDef>
+                    Order Id
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="CustomerName">
+                <mat-header-cell *matHeaderCellDef>
+                    Customer Name
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.customerName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Address">
+                <mat-header-cell *matHeaderCellDef>
+                    Customer Address
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Phone">
+                <mat-header-cell *matHeaderCellDef>
+                    Phone No.
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.phoneNo}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="OrderDate">
+                <mat-header-cell *matHeaderCellDef>
+                    Order Date
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.dateOrder| date: 'dd-MM-yyy'}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Action">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="More actions">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="viewDetails(element)">
+                            <mat-icon>visibility</mat-icon>
+                            <span>Preview</span>
+                        </button>
+                    </mat-menu>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <div *ngIf="total == 0" class="text-center mt-2">There's No Record's</div>
+        <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[5, 10, 25, 100]"
+            [pageSize]="searchParameters.pageSize" [length]="total" (page)="onPageChanged($event)">
+        </mat-paginator>
+    </p-card>
+</div>

@@ -1,0 +1,27 @@
+<div class="container-form">
+    <form [formGroup]="loginForm">
+    <p-card class="child">
+        <p-header>
+            <span class="login-header">Login Page!</span>
+            
+        </p-header>
+         
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col">
+                <label for="firstname1">UserName</label>
+                <input id="firstname1" type="text" formControlName="userName"  pInputText> 
+            </div>
+            <div class="p-field p-col">
+                <label for="lastname1">Password</label>
+                <input id="lastname1" type="text" pInputText formControlName="password"> 
+            </div>
+        </div>
+        
+        <p-footer>
+            <p-button (click)="submitForm()" label="Submit" icon="pi pi-check"></p-button>
+           
+
+        </p-footer>
+    </p-card>
+</form>
+</div>

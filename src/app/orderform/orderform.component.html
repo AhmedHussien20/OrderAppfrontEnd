@@ -1,0 +1,113 @@
+<div class="container-form">
+    <mat-card> 
+        <mat-card-title>Order Form</mat-card-title>
+        <div class="pull-right">
+                    <div class="col">
+                        <ng-container>
+                            <button mat-raised-button matTooltip="Back" color="primary" [routerLink]="['/orderlist']"
+                                type="button">
+                                <span>Back</span>
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+    <form [formGroup]="form">
+     
+        <div class="row">
+
+            <div class="col">
+                <mat-form-field class="mat-form-field-fluid col-md-10">
+                    <mat-label> Customer Name</mat-label>
+                    <input matInput formControlName="customerName" autocomplete="off" required>
+                    <mat-error *ngIf="form.controls.customerName.hasError('required')">
+                        <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.customerName.hasError('minlength')">
+                        <strong>Min length 3</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="mat-form-field-fluid col-md-10">
+                    <mat-label>order date</mat-label>
+                    <input matInput [matDatepicker]="fromPicker"  
+                      formControlName="orderDate" autocomplete="off"
+                    required>
+                    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                    <mat-error *ngIf="form.controls.orderDate.hasError('required')">
+                        <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.orderDate.hasError('minlength')">
+                        <strong>Min length 3</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <mat-form-field class="mat-form-field-fluid col-md-10">
+                    <mat-label> Addres</mat-label>
+                    <input matInput formControlName="address" autocomplete="off" required>
+                    <mat-error *ngIf="form.controls.address.hasError('required')">
+                        <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.address.hasError('minlength')">
+                        <strong>Min length 3</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="mat-form-field-fluid col-md-10">
+                    <mat-label> Phone</mat-label>
+                    <input matInput formControlName="phoneNo" autocomplete="off" required>
+                    <mat-error *ngIf="form.controls.phoneNo.hasError('required')">
+                        <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.phoneNo.hasError('minlength')">
+                        <strong>Min length 3</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <div formArrayName="orderDetails" *ngFor="let orderdetail of form.controls.orderDetails?.value; let i=index;trackBy:trackByFn">
+                    <div [formGroupName]="i">
+                      
+                        <div class="row">  
+                            <div class="col">
+                            <input placeholder="itemNo" formControlName="itemNo" >
+                        </div>
+                        <div class="col">
+                            <input placeholder="itemDescription" formControlName="itemDescription" >
+                        </div>
+                        <div class="col">
+                            <input placeholder="quantity" formControlName="quantity"  >
+                        </div>
+                        <div class="col">
+                            <input placeholder="price" formControlName="price" >
+                        </div>
+                        <div class="col">
+                       
+                            <input placeholder="total" formControlName="total"   >
+                        </div>
+                        <div class="col">
+                            <button (click)="AddRow()">Add</button>
+                        </div>
+                        <div class="col">
+                            <button (click)="removerow(i)">Remove</button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+               
+         
+        <p-footer>
+            <p-button (click)="submitForm()" label="Submit" icon="pi pi-check"></p-button>
+           
+
+        </p-footer>
+     
+</form>
+    </mat-card>
+</div>
